@@ -1,0 +1,10 @@
+prefix=@EFSW_PREFIX@
+libdir=@EFSW_LIBDIR@
+includedir=@EFSW_INCLUDEDIR@
+
+Name: efsw
+Description: C++ cross-platform file system watcher and notifier
+Version: @EFSW_VERSION@
+Libs: -L${libdir} -lefsw
+Libs.private: @EFSW_LIBS_PRIVATE@
+Cflags: -I${includedir}

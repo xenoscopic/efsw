@@ -125,6 +125,15 @@ install(TARGETS efsw LIBRARY DESTINATION ${LIB_DESTINATION} ARCHIVE DESTINATION 
 file (GLOB HDRS "include/efsw/*.h" "include/efsw/*.hpp")
 install (FILES ${HDRS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/efsw)
 
+set(EFSW_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(EFSW_LIBDIR "\${prefix}/lib")
+set(EFSW_INCLUDEDIR "\${prefix}/include")
+set(EFSW_VERSION "1.0")
+get_target_property(EFSW_LIBS_PRIVATE efsw INTERFACE_LINK_LIBRARIES)
+string(REPLACE ";" " " EFSW_LIBS_PRIVATE "${EFSW_LIBS_PRIVATE}")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/efsw.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/efsw.pc" @ONLY)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/efsw.pc" DESTINATION "${LIB_DESTINATION}/pkgconfig")
+
 if (BUILD_TEST_APP)
     add_executable(efsw-test src/test/efsw-test.cpp)
     target_link_libraries(efsw-test efsw)
